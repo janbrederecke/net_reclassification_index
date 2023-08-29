@@ -3,21 +3,21 @@ import pandas as pd
 from scipy.stats import norm
 
 
-def process_nri(x):
+def process_nri(results):
     qqq = norm.ppf(0.975)
 
-    out = {
-        "nri": x["nri"],
-        "nri.left": x["nri"] - qqq * x["nri.SE"],
-        "nri.right": x["nri"] + qqq * x["nri.SE"],
-        "nri.ev": x["nri.ev"],
-        "nri.ev.left": x["nri.ev"] - qqq * x["nri.ev.SE"],
-        "nri.ev.right": x["nri.ev"] + qqq * x["nri.ev.SE"],
-        "nri.nev": x["nri.nev"],
-        "nri.nev.left": x["nri.nev"] - qqq * x["nri.nev.SE"],
-        "nri.nev.right": x["nri.nev"] + qqq * x["nri.nev.SE"],
-        "N": x["N"],
-        "Nevent": x["Nevent"],
+    output = {
+        "nri": results["nri"],
+        "nri_left": results["nri"] - qqq * results["nri_se"],
+        "nri_right": results["nri"] + qqq * results["nri_se"],
+        "nri_ev": results["nri_ev"],
+        "nri_ev_left": results["nri_ev"] - qqq * results["nri_ev_se"],
+        "nri_ev_right": results["nri_ev"] + qqq * results["nri_ev_se"],
+        "nri_nev": results["nri_nev"],
+        "nri_nev_left": results["nri_nev"] - qqq * results["nri_nev_se"],
+        "nri_nev_right": results["nri_nev"] + qqq * results["nri_nev_se"],
+        "n": results["n"],
+        "n_event": results["n_event"],
     }
 
-    return pd.DataFrame(out)
+    return pd.DataFrame(output)

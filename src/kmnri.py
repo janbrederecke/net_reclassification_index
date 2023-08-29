@@ -2,24 +2,24 @@ import numpy as np
 from src.kmnriw import kmnriw
 
 
-def kmnri(risklimits, pold, pnew, ftime, censvar, weight=None):
-    n = len(censvar)
-    risklimits = np.sort(
-        np.unique(np.concatenate(([0.0], np.setdiff1d(risklimits, 1.0))))
+def kmnri(risk_limits, p_old, p_new, fu_time, status, weight=None):
+    n = len(status)
+    risk_limits = np.sort(
+        np.unique(np.concatenate(([0.0], np.setdiff1d(risk_limits, 1.0))))
     )
-    ngroup = len(risklimits)
+
     if weight is None:
         weight = np.ones(n)
 
     match = lambda a, b: [b.index(x) if x in b else None for x in a]
 
-    indices = np.where(censvar == 1)[0]
-    unique_events = np.unique(ftime[indices])
+    indices = np.where(status == 1)[0]
+    unique_events = np.unique(fu_time[indices])
     sorted_unique_events = list(np.sort(unique_events))
     events = np.asarray(
         match(
             sorted_unique_events,
-            list(ftime),
+            list(fu_time),
         )
     )
 
@@ -28,23 +28,23 @@ def kmnri(risklimits, pold, pnew, ftime, censvar, weight=None):
     survival = np.zeros(1)
 
     kmnriw(
-        up,
-        down,
-        survival,
-        np.append(risklimits, 1 + 1e-05),
-        pold,
-        pnew,
-        ftime,
-        weight,
-        events,
-        len(events),
-        censvar,
-        n,
+        up=up,
+        down=down,
+        survival=survival,
+        cutpoints=np.append(risk_limits, 1 + 1e-05),
+        pold=p_old,
+        pnew=p_new,
+        ftime=fu_time,
+        weights=weight,
+        evtimes=events,
+        ntimes=len(events),
+        casestatus=status,
+        n=n,
     )
 
     return {
-        "casesup": up[1],
-        "casesdown": down[1],
-        "noncasesup": up[0],
-        "noncasesdown": down[0],
+        "cases_up": up[1],
+        "cases_down": down[1],
+        "noncases_up": up[0],
+        "noncases_down": down[0],
     }
