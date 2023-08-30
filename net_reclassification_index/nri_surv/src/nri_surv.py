@@ -1,6 +1,8 @@
 import pandas as pd
-from src.process_nri import process_nri
-from src.categorical_nri_boot import categorical_nri_boot
+from .process_nri import process_nri
+from .categorical_nri_boot import (
+    categorical_nri_boot,
+)
 
 
 def nri_surv(predictors, data, risk_limits, fu_time, status, time, n_boot):

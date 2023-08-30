@@ -1,6 +1,6 @@
 import numpy as np
 from scipy.stats import norm
-from src.kmnri import kmnri
+from .kmnri import kmnri
 
 
 def categorical_nri_boot(risk_limits, p_old, p_new, fu_time, status, time, n_boot):

@@ -1,5 +1,5 @@
 import numpy as np
-from src.kmnriw import kmnriw
+from .kmnriw import kmnriw
 
 
 def kmnri(risk_limits, p_old, p_new, fu_time, status, weight=None):
