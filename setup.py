@@ -8,11 +8,6 @@ setup(
     description="Net Reclassification Index for survival data.",
     author="Jan Brederecke",
     license="MIT",
-    install_requires=[
-        "numpy",
-        "pandas",
-        "scipy",
-    ],
     setup_requires=[
         "numpy",
         "pandas",
